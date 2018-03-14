@@ -14,10 +14,15 @@ class Book(object):
         return html
 
 
-    def almanac(self):
+    def run(self):
         # download the web page
         html = self.get_web("https://www.packtpub.com/packt/offers/free-learning")
         #parse it
+        soup = bs4.BeautifulSoup(html, "lxml")
+        information = soup.find("div","dotd-main-book-summary float-left")
+        title_book = information.find("div","dotd-title")
+        title = title_book.text
+        print ("%s"% (title))
 
 if __name__ == '__main__':
     book = Book()
